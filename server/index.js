@@ -9,6 +9,6 @@ const app = express();
 app.use(express.json());
 
 app.use(indexRoutes);
-app.use(criminalsRoutes);
+app.use("/v1", criminalsRoutes);
 
 app.listen(PORT);
