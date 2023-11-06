@@ -1,78 +1,62 @@
+import "./App.css";
+
+import { useDisclosure } from "@mantine/hooks";
 import {
   AppShell,
-  Button,
+  Burger,
   Container,
-  Drawer,
-  Flex,
+  Group,
+  Skeleton,
   Text,
-  TextInput,
 } from "@mantine/core";
-import "./App.css";
-import { useDisclosure } from "@mantine/hooks";
+import CriminalForm from "./pages/CriminalForm";
+import Criminals from "./pages/Criminals";
 
-function App() {
+export function App() {
   const [mobileOpened, { toggle: toggleMobile }] = useDisclosure();
   const [desktopOpened, { toggle: toggleDesktop }] = useDisclosure(true);
-  const [drawerOpened, { open, close }] = useDisclosure(false);
 
   return (
     <AppShell
-      padding="md"
       header={{ height: 60 }}
       navbar={{
-        width: 260,
+        width: 300,
         breakpoint: "sm",
         collapsed: { mobile: !mobileOpened, desktop: !desktopOpened },
       }}
+      padding="md"
     >
       <AppShell.Header>
-        <Container size={"md"}>
-          <Text size="xl">MostWanted</Text>
-        </Container>
+        <Group h="100%" px="md">
+          <Burger
+            opened={mobileOpened}
+            onClick={toggleMobile}
+            hiddenFrom="sm"
+            size="sm"
+          />
+          <Burger
+            opened={desktopOpened}
+            onClick={toggleDesktop}
+            visibleFrom="sm"
+            size="sm"
+          />
+          <Text fw={"bold"}>mostwanted</Text>
+        </Group>
       </AppShell.Header>
-      <AppShell.Navbar>
-        <div className="px-4 pt-4 flex flex-col">
-          <Text size="lg" mb={12}>
-            Navbar
-          </Text>
-          <Button onClick={toggleDesktop} visibleFrom="sm">
-            Toggle navbar
-          </Button>
-        </div>
+      <AppShell.Navbar p="md">
+        Navbar
+        {Array(15)
+          .fill(0)
+          .map((_, index) => (
+            <Skeleton key={index} h={28} mt="sm" animate={false} />
+          ))}
       </AppShell.Navbar>
       <AppShell.Main>
-        <Container size={"md"}>
-          <Button onClick={toggleDesktop} visibleFrom="sm">
-            Toggle navbar
-          </Button>
-          <Button onClick={toggleMobile} hiddenFrom="sm">
-            Toggle navbar
-          </Button>
-          <Drawer
-            opened={drawerOpened}
-            onClose={close}
-            title="New criminal"
-            position="right"
-          >
-            <Flex direction={"column"} gap={"md"}>
-              <TextInput label="test" />
-              <TextInput label="test" />
-              <TextInput label="test" />
-              <TextInput label="test" />
-              <Button mt={"md"} color="green" onClick={close}>
-                Cargar
-              </Button>
-            </Flex>
-          </Drawer>
-
-          <Button onClick={open}>Open drawer</Button>
+        <Container>
+          {/* <CriminalForm></CriminalForm> */}
+          <Criminals></Criminals>
         </Container>
       </AppShell.Main>
-      <AppShell.Footer>
-        <Container size={"size"}>
-          <h1>tasdasd</h1>
-        </Container>
-      </AppShell.Footer>
     </AppShell>
   );
 }
