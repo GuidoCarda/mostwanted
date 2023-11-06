@@ -53,8 +53,8 @@ export function App() {
       </AppShell.Navbar>
       <AppShell.Main>
         <Container>
-          {/* <CriminalForm></CriminalForm> */}
-          <Criminals></Criminals>
+          {/* <CriminalForm /> */}
+          <Criminals />
         </Container>
       </AppShell.Main>
     </AppShell>
