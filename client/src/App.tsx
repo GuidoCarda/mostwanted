@@ -6,15 +6,15 @@ import {
   Burger,
   Container,
   Group,
-  Skeleton,
+  NavLink,
+  Stack,
   Text,
 } from "@mantine/core";
-import CriminalForm from "./pages/CriminalForm";
-import Criminals from "./pages/Criminals";
+import { Outlet } from "react-router-dom";
 
 export function App() {
   const [mobileOpened, { toggle: toggleMobile }] = useDisclosure();
-  const [desktopOpened, { toggle: toggleDesktop }] = useDisclosure(true);
+  const [desktopOpened, { toggle: toggleDesktop }] = useDisclosure();
 
   return (
     <AppShell
@@ -44,17 +44,14 @@ export function App() {
         </Group>
       </AppShell.Header>
       <AppShell.Navbar p="md">
-        Navbar
-        {Array(15)
-          .fill(0)
-          .map((_, index) => (
-            <Skeleton key={index} h={28} mt="sm" animate={false} />
-          ))}
+        <Stack>
+          <NavLink href="/criminals">Criminanls</NavLink>
+          <NavLink href="/new">Add criminal</NavLink>
+        </Stack>
       </AppShell.Navbar>
       <AppShell.Main>
         <Container>
-          {/* <CriminalForm /> */}
-          <Criminals />
+          <Outlet />
         </Container>
       </AppShell.Main>
     </AppShell>

@@ -23,19 +23,20 @@ export const getCriminal = async (req, res) => {
       return res.status(400).json({ message: "Criminal not found" });
     }
 
-    return res.json(results);
+    return res.json(results[0]);
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
 };
 
 export const createCriminal = async (req, res) => {
-  const { name, nickname } = req.body;
+  console.log(req.body);
+  const { name, nickname, description } = req.body;
 
   try {
     const [results] = await pool.query(
-      `INSERT INTO criminals (name, nickname) VALUES (?,?)`,
-      [name, nickname]
+      `INSERT INTO criminals (name, nickname, description) VALUES (?,?,?)`,
+      [name, nickname, description]
     );
 
     return res.json({
